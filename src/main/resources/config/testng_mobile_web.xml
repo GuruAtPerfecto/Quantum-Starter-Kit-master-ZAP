@@ -1,0 +1,89 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Web Demo Suite" verbose="0" parallel="tests"
+	thread-count="100">
+	<listeners>
+		<listener class-name="com.quantum.listeners.QuantumReportiumListener" />
+	</listeners>
+
+	<test name="Web Scenarios iOS Test 1" enabled="true"
+		thread-count="10">
+		<parameter name="driver.capabilities.deviceName" value="00008110-000C35C1349B801E"></parameter>
+		<groups>
+			<run>
+				<include name="@Web" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="com.qmetry.qaf.automation.step.client.gherkin.GherkinScenarioFactory" />
+		</classes>
+	</test>
+
+
+
+	<test name="Web Scenarios iOS Test 3" enabled="true"
+		  thread-count="10">
+		<parameter name="driver.capabilities.deviceName" value="EBB52E08A21BB4970FB36F5872B58B439CA023E9"></parameter>
+		<groups>
+			<run>
+				<include name="@Web" />
+			</run>
+		</groups>
+		<classes>
+			<class
+					name="com.qmetry.qaf.automation.step.client.gherkin.GherkinScenarioFactory" />
+		</classes>
+	</test>
+
+	<test name="Web Scenarios Android Test 4" enabled="true"
+		  thread-count="10">
+		<parameter name="driver.capabilities.deviceName" value="21141FDEE000BC"></parameter>
+		<groups>
+			<run>
+				<include name="@Web" />
+			</run>
+		</groups>
+		<classes>
+			<class
+					name="com.qmetry.qaf.automation.step.client.gherkin.GherkinScenarioFactory" />
+		</classes>
+	</test>
+
+	<test name="Web Scenarios Android Test 5" enabled="true"
+		  thread-count="10">
+		<parameter name="driver.capabilities.deviceName" value="R3CT102KM4F"></parameter>
+		<groups>
+			<run>
+				<include name="@Web" />
+			</run>
+		</groups>
+		<classes>
+			<class
+					name="com.qmetry.qaf.automation.step.client.gherkin.GherkinScenarioFactory" />
+		</classes>
+	</test>
+
+	<test name="Web Scenarios Mac Desktop Test 6" enabled="true"
+		  thread-count="10">
+		<parameter name="perfecto.capabilities.platformName" value="Mac"></parameter>
+		<parameter name="perfecto.capabilities.platformVersion"
+				   value="macOS Catalina"></parameter>
+		<parameter name="perfecto.capabilities.browserName" value="Safari"></parameter>
+		<parameter name="perfecto.capabilities.browserVersion"
+				   value="13"></parameter>
+		<parameter name="perfecto.capabilities.resolution" value="800x600"></parameter>
+		<parameter name="perfecto.capabilities.location" value="NA-US-BOS"></parameter>
+		<parameter name="perfecto.capabilities.deviceType" value="Web"></parameter>
+		<parameter name="env.resources" value="src/main/resources/common" />
+		<groups>
+			<run>
+				<include name="@Web" />
+			</run>
+		</groups>
+		<classes>
+			<class
+					name="com.qmetry.qaf.automation.step.client.gherkin.GherkinScenarioFactory" />
+		</classes>
+	</test>
+
+</suite>
