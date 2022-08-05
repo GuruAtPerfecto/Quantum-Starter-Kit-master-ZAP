@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @QAFTestStepProvider
@@ -89,7 +91,8 @@ public class CommonStepsDefs {
 	public static void zapScanAndDownloadReport() throws Exception {
 		if(ConfigurationManager.getBundle().getString("includeSecurityTests", "false").equalsIgnoreCase("true")) {
 
-			String AUTUrl = (String) ConfigurationManager.getBundle().getProperty("AUTUrl");
+			//String AUTUrl = (String) ConfigurationManager.getBundle().getProperty("AUTUrl");
+			String ResultString = null;
 
 			Field t = null;
 			try {
@@ -103,9 +106,18 @@ public class CommonStepsDefs {
 			//getZapClient().spiderScanZAP(api, DeviceUtils.getQAFDriver().getCurrentUrl());
 			//getZapClient().activeScanZAP(api,DeviceUtils.getQAFDriver().getCurrentUrl());
 
+			String URLString = DeviceUtils.getQAFDriver().getCurrentUrl();
 
-			getZapClient().spiderScanZAP(api, AUTUrl);
-			getZapClient().activeScanZAP(api,AUTUrl);
+			Pattern regex = Pattern.compile("(http):\\/\\/(.+?)\\/");
+			Matcher regexMatcher = regex.matcher(URLString);
+			if (regexMatcher.find()) {
+				ResultString = regexMatcher.group();
+				System.out.println("url1 = " + ResultString);
+			}
+
+
+			getZapClient().spiderScanZAP(api, StringUtil.chop(ResultString));
+			getZapClient().activeScanZAP(api,StringUtil.chop(ResultString));
 
 			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyyHHmmss");
 			Date date = new Date();
@@ -121,7 +133,7 @@ public class CommonStepsDefs {
 			createDir.mkdir();
 			String finalReportPath = createDir.getPath() + "/ZAPReport_" + formatter.format(date) + ".html";
 
-			getZapClient().reportAndExportAlertZAP(api, DeviceUtils.getQAFDriver().getCurrentUrl(), finalReportPath);
+			getZapClient().reportAndExportAlertZAP(api, StringUtil.chop(ResultString), finalReportPath);
 		}
 
 	}
